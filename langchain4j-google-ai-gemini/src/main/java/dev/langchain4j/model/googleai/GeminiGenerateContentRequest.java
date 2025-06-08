@@ -227,6 +227,8 @@ class GeminiGenerateContentRequest {
 
         public GeminiGenerateContentRequest build() {
             return new GeminiGenerateContentRequest(this.model, this.contents, this.tools, this.toolConfig, this.safetySettings, this.systemInstruction, this.generationConfig, this.cachedContent);
+
+
         }
 
         public String toString() {

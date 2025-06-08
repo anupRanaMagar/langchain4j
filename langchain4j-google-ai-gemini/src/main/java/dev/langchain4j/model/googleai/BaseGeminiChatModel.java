@@ -41,6 +41,7 @@ abstract class BaseGeminiChatModel {
     protected final Double temperature;
     protected final Integer topK;
     protected final Double topP;
+    protected final ThinkingConfig thinkingConfig;
     protected final Integer maxOutputTokens;
     protected final List<String> stopSequences;
     protected final ResponseFormat responseFormat;
@@ -57,6 +58,7 @@ abstract class BaseGeminiChatModel {
             Double temperature,
             Integer topK,
             Double topP,
+            ThinkingConfig thinkingConfig,
             Integer maxOutputTokens,
             Duration timeout,
             ResponseFormat responseFormat,
@@ -74,6 +76,7 @@ abstract class BaseGeminiChatModel {
         this.temperature = temperature;
         this.topK = topK;
         this.topP = topP;
+        this.thinkingConfig = thinkingConfig == null ? ThinkingConfig.builder().build() : thinkingConfig;
         this.maxOutputTokens = maxOutputTokens;
         this.stopSequences = getOrDefault(stopSequences, emptyList());
         this.toolConfig = toolConfig;
@@ -115,6 +118,7 @@ abstract class BaseGeminiChatModel {
                         .temperature(getOrDefault(requestParameters.temperature(), this.temperature))
                         .topK(getOrDefault(requestParameters.topK(), this.topK))
                         .topP(getOrDefault(requestParameters.topP(), this.topP))
+                        .thinkingConfig(this.thinkingConfig)
                         .build())
                 .safetySettings(this.safetySettings)
                 .tools(FunctionMapper.fromToolSepcsToGTool(toolSpecifications, this.allowCodeExecution))

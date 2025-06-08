@@ -42,6 +42,7 @@ public class GoogleAiGeminiChatModel extends BaseGeminiChatModel implements Chat
             String apiKey, String modelName,
             Integer maxRetries,
             Double temperature, Integer topK, Double topP,
+            ThinkingConfig thinkingConfig,
             Integer maxOutputTokens, Duration timeout,
             ResponseFormat responseFormat,
             List<String> stopSequences, GeminiFunctionCallingConfig toolConfig,
@@ -50,7 +51,7 @@ public class GoogleAiGeminiChatModel extends BaseGeminiChatModel implements Chat
             List<GeminiSafetySetting> safetySettings,
             List<ChatModelListener> listeners
     ) {
-        super(apiKey, modelName, temperature, topK, topP, maxOutputTokens, timeout,
+        super(apiKey, modelName, temperature, topK, topP, thinkingConfig, maxOutputTokens, timeout,
                 responseFormat, stopSequences, toolConfig, allowCodeExecution,
                 includeCodeExecutionOutput, logRequestsAndResponses, safetySettings,
                 listeners, maxRetries);
@@ -179,6 +180,7 @@ public class GoogleAiGeminiChatModel extends BaseGeminiChatModel implements Chat
         private Double temperature;
         private Integer topK;
         private Double topP;
+        private ThinkingConfig thinkingConfig;
         private Integer maxOutputTokens;
         private Duration timeout;
         private ResponseFormat responseFormat;
@@ -234,6 +236,10 @@ public class GoogleAiGeminiChatModel extends BaseGeminiChatModel implements Chat
             this.topP = topP;
             return this;
         }
+        public GoogleAiGeminiChatModelBuilder thinkingConfig(ThinkingConfig thinkingConfig) {
+            this.thinkingConfig = thinkingConfig;
+            return this;
+        }
 
         public GoogleAiGeminiChatModelBuilder maxOutputTokens(Integer maxOutputTokens) {
             this.maxOutputTokens = maxOutputTokens;
@@ -286,7 +292,7 @@ public class GoogleAiGeminiChatModel extends BaseGeminiChatModel implements Chat
         }
 
         public GoogleAiGeminiChatModel build() {
-            return new GoogleAiGeminiChatModel(this.apiKey, this.modelName, this.maxRetries, this.temperature, this.topK, this.topP, this.maxOutputTokens, this.timeout, this.responseFormat, this.stopSequences, this.toolConfig, this.allowCodeExecution, this.includeCodeExecutionOutput, this.logRequestsAndResponses, this.safetySettings, this.listeners);
+            return new GoogleAiGeminiChatModel(this.apiKey, this.modelName, this.maxRetries, this.temperature, this.topK, this.topP, this.thinkingConfig, this.maxOutputTokens, this.timeout, this.responseFormat, this.stopSequences, this.toolConfig, this.allowCodeExecution, this.includeCodeExecutionOutput, this.logRequestsAndResponses, this.safetySettings, this.listeners);
         }
     }
 }

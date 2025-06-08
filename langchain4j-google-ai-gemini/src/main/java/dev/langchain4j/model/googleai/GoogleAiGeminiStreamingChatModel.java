@@ -40,7 +40,7 @@ public class GoogleAiGeminiStreamingChatModel extends BaseGeminiChatModel implem
 
     public GoogleAiGeminiStreamingChatModel(
             String apiKey, String modelName,
-            Double temperature, Integer topK, Double topP,
+            Double temperature, Integer topK, Double topP, ThinkingConfig thinkingConfig,
             Integer maxOutputTokens, Duration timeout,
             ResponseFormat responseFormat,
             List<String> stopSequences, GeminiFunctionCallingConfig toolConfig,
@@ -50,7 +50,7 @@ public class GoogleAiGeminiStreamingChatModel extends BaseGeminiChatModel implem
             List<ChatModelListener> listeners,
             Integer maxRetries
     ) {
-        super(apiKey, modelName, temperature, topK, topP, maxOutputTokens, timeout,
+        super(apiKey, modelName, temperature, topK, topP, thinkingConfig, maxOutputTokens, timeout,
                 responseFormat, stopSequences, toolConfig, allowCodeExecution,
                 includeCodeExecutionOutput, logRequestsAndResponses, safetySettings,
                 listeners, maxRetries);
@@ -163,6 +163,7 @@ public class GoogleAiGeminiStreamingChatModel extends BaseGeminiChatModel implem
         private Double temperature;
         private Integer topK;
         private Double topP;
+        private ThinkingConfig thinkingConfig;
         private Integer maxOutputTokens;
         private Duration timeout;
         private ResponseFormat responseFormat;
@@ -212,6 +213,11 @@ public class GoogleAiGeminiStreamingChatModel extends BaseGeminiChatModel implem
 
         public GoogleAiGeminiStreamingChatModelBuilder topP(Double topP) {
             this.topP = topP;
+            return this;
+        }
+
+        public GoogleAiGeminiStreamingChatModelBuilder thinkingConfig(ThinkingConfig thinkingConfig) {
+            this.thinkingConfig = thinkingConfig;
             return this;
         }
 
@@ -271,11 +277,11 @@ public class GoogleAiGeminiStreamingChatModel extends BaseGeminiChatModel implem
         }
 
         public GoogleAiGeminiStreamingChatModel build() {
-            return new GoogleAiGeminiStreamingChatModel(this.apiKey, this.modelName, this.temperature, this.topK, this.topP, this.maxOutputTokens, this.timeout, this.responseFormat, this.stopSequences, this.toolConfig, this.allowCodeExecution, this.includeCodeExecutionOutput, this.logRequestsAndResponses, this.safetySettings, this.listeners, this.maxRetries);
+            return new GoogleAiGeminiStreamingChatModel(this.apiKey, this.modelName, this.temperature, this.topK, this.topP, this.thinkingConfig, this.maxOutputTokens, this.timeout, this.responseFormat, this.stopSequences, this.toolConfig, this.allowCodeExecution, this.includeCodeExecutionOutput, this.logRequestsAndResponses, this.safetySettings, this.listeners, this.maxRetries);
         }
 
         public String toString() {
-            return "GoogleAiGeminiStreamingChatModel.GoogleAiGeminiStreamingChatModelBuilder(apiKey=" + this.apiKey + ", modelName=" + this.modelName + ", temperature=" + this.temperature + ", topK=" + this.topK + ", topP=" + this.topP + ", maxOutputTokens=" + this.maxOutputTokens + ", timeout=" + this.timeout + ", responseFormat=" + this.responseFormat + ", stopSequences=" + this.stopSequences + ", toolConfig=" + this.toolConfig + ", allowCodeExecution=" + this.allowCodeExecution + ", includeCodeExecutionOutput=" + this.includeCodeExecutionOutput + ", logRequestsAndResponses=" + this.logRequestsAndResponses + ", safetySettings=" + this.safetySettings + ", listeners=" + this.listeners + ", maxRetries=" + this.maxRetries + ")";
+            return "GoogleAiGeminiStreamingChatModel.GoogleAiGeminiStreamingChatModelBuilder(apiKey=" + this.apiKey + ", modelName=" + this.modelName + ", temperature=" + this.temperature + ", topK=" + this.topK + ", topP=" + this.topP + ", thinkingConfig=" + this.thinkingConfig + ", maxOutputTokens=" + this.maxOutputTokens + ", timeout=" + this.timeout + ", responseFormat=" + this.responseFormat + ", stopSequences=" + this.stopSequences + ", toolConfig=" + this.toolConfig + ", allowCodeExecution=" + this.allowCodeExecution + ", includeCodeExecutionOutput=" + this.includeCodeExecutionOutput + ", logRequestsAndResponses=" + this.logRequestsAndResponses + ", safetySettings=" + this.safetySettings + ", listeners=" + this.listeners + ", maxRetries=" + this.maxRetries + ")";
         }
     }
 }
