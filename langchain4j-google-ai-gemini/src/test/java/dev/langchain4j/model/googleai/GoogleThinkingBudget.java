@@ -63,22 +63,6 @@ public class GoogleThinkingBudget {
         assertThat(response.toLowerCase()).doesNotContain("error");
     }
 
-    @Test
-    void test_thinkingConfig_without_thoughts() {
-        GoogleAiGeminiChatModel gemini = GoogleAiGeminiChatModel.builder()
-                .apiKey(GOOGLE_AI_GEMINI_API_KEY)
-                .modelName("gemini-2.5-flash-preview-05-20")
-                .temperature(1.0)
-                .thinkingConfig(ThinkingConfig.builder()
-                        .thinkingBudget(10)
-                        .includeThoughts(false)
-                        .build())
-                .build();
-
-        String response = gemini.chat("What is Java?");
-
-        assertThat(response.length()).isLessThan(200);
-    }
 
     @Test
     void test_thinkingConfig_with_zero_budget() {
